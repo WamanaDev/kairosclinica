@@ -1,17 +1,11 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react'
+import { useEffect, useRef } from 'react'
 import Logo from './Logo'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
 import { CONTACT } from '../data/content'
 
-const HeroParticles = lazy(() => import('./HeroParticles'))
-
 export default function Hero() {
   const copyRef = useRef(null)
-  const [showParticles, setShowParticles] = useState(false)
-
-  useEffect(() => {
-    setShowParticles(window.innerWidth >= 900 && !prefersReducedMotion)
-  }, [])
+  const frameRef = useRef(null)
 
   useEffect(() => {
     if (prefersReducedMotion || !copyRef.current) return
@@ -21,6 +15,11 @@ export default function Hero() {
         items,
         { opacity: 0, y: 22 },
         { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.12, delay: 0.1 }
+      )
+      gsap.fromTo(
+        frameRef.current,
+        { opacity: 0, scale: 0.96 },
+        { opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', delay: 0.2 }
       )
     })
     return () => ctx.revert()
@@ -50,15 +49,16 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero-frame">
-          <div className="arch-window">
-            {showParticles && (
-              <Suspense fallback={null}>
-                <HeroParticles />
-              </Suspense>
-            )}
-            <div className="arch-glow" />
-            <Logo size={230} animate />
+        <div className="hero-frame" ref={frameRef}>
+          <div className="hero-frame-inner">
+            <div className="arch-window">
+              <img src="/equipe/team-group.webp" alt="Equipe da Clínica Kairós" />
+              <div className="arch-glow" />
+            </div>
+            <div className="hero-badge">
+              <Logo size={26} />
+              <span>Equipe Kairós</span>
+            </div>
           </div>
         </div>
       </div>

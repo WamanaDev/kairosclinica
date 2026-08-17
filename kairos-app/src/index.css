@@ -106,23 +106,31 @@ nav{ display:flex; align-items:center; justify-content:space-between; padding:14
 .hero-trust strong{ color:var(--ink); }
 
 .hero-frame{ position:relative; display:flex; align-items:center; justify-content:center; min-height:380px; }
+.hero-frame-inner{ position:relative; width:min(100%,380px); margin:0 auto; }
 .hero-frame .arch-window{
-  position:relative; width:min(100%,380px); aspect-ratio:5/6;
+  position:relative; width:100%; aspect-ratio:5/6;
   border-radius:999px 999px 44px 44px;
-  background:linear-gradient(155deg,var(--blush) 0%,#F8E9D9 55%,var(--paper) 100%);
+  background:var(--blush);
   border:2px solid rgba(221,124,63,0.35);
-  display:flex; align-items:flex-end; justify-content:center;
   overflow:hidden;
   box-shadow: var(--shadow-lift);
 }
-.hero-frame canvas{ position:absolute; inset:0; width:100%; height:100%; }
-.hero-frame .arch-window .Logo{ position:relative; z-index:2; width:56%; height:auto; color:var(--terracotta); padding-bottom:8%; }
-.hero-frame .arch-glow{ position:absolute; inset:0; background:radial-gradient(circle at 50% 30%, rgba(255,255,255,0.55), transparent 60%); pointer-events:none; }
+.hero-frame .arch-window img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; }
+.hero-frame .arch-glow{ position:absolute; inset:0; background:linear-gradient(200deg, rgba(255,255,255,0.28) 0%, transparent 30%, rgba(29,47,34,0.22) 100%); pointer-events:none; }
+
+.hero-badge{
+  position:absolute; left:-18px; bottom:34px; z-index:2;
+  display:flex; align-items:center; gap:9px; background:var(--card);
+  padding:10px 18px 10px 12px; border-radius:100px; box-shadow:var(--shadow-soft); border:1px solid var(--line);
+  font-family:var(--display); font-weight:600; font-size:0.88rem; color:var(--forest-deep);
+}
+.hero-badge .Logo{ flex-shrink:0; }
 
 @media (max-width:900px){
   .hero-grid{ grid-template-columns:1fr; }
   .hero-frame{ order:-1; min-height:280px; }
-  .hero-frame .arch-window{ max-width:280px; }
+  .hero-frame-inner{ max-width:280px; }
+  .hero-badge{ left:50%; transform:translateX(-50%); bottom:-16px; }
 }
 
 /* ============ TRUST RIBBON ============ */
